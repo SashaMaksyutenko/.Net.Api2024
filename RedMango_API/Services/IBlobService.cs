@@ -1,11 +1,11 @@
 ﻿using System;
 namespace RedMango_API.Services
 {
-	public class IBlobService
+	public interface IBlobService
 	{
-		public IBlobService()
-		{
-		}
-	}
+		Task<string> GetBlob(string blobName,string containerName);
+        Task<bool> DeleteBlob(string blobName, string containerName);
+        Task<string> UploadBlob(string blobName, string containerName,IFormFile file);
+    }
 }
 
