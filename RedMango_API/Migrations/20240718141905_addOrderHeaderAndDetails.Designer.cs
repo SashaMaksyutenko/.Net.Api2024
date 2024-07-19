@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RedMango_API.Data;
 
@@ -11,9 +12,11 @@ using RedMango_API.Data;
 namespace RedMango_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240718141905_addOrderHeaderAndDetails")]
+    partial class addOrderHeaderAndDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,7 +309,7 @@ namespace RedMango_API.Migrations
                         {
                             Id = 3,
                             Category = "Appetizer",
-                            Description = "Fusc tincidunt maximus leo, sed scelerisque масса auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             Image = "https://redmangoimages.blob.core.windows.net/redmango/pani puri.jpg",
                             Name = "Panu Puri",
                             Price = 8.9900000000000002,
@@ -346,7 +349,7 @@ namespace RedMango_API.Migrations
                         {
                             Id = 7,
                             Category = "Entrée",
-                            Description = "Fusc tincidunt maximus leo, sed scelerisque масса auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             Image = "https://redmangoimages.blob.core.windows.net/redmango/paneer tikka.jpg",
                             Name = "Paneer Tikka",
                             Price = 13.99,
@@ -356,7 +359,7 @@ namespace RedMango_API.Migrations
                         {
                             Id = 8,
                             Category = "Dessert",
-                            Description = "Fusc tincidunt maximus leo, sed scelerisque масса auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             Image = "https://redmangoimages.blob.core.windows.net/redmango/carrot love.jpg",
                             Name = "Carrot Love",
                             Price = 4.9900000000000002,
@@ -366,7 +369,7 @@ namespace RedMango_API.Migrations
                         {
                             Id = 9,
                             Category = "Dessert",
-                            Description = "Fusc tincidunt maximus leo, sed scelerisque масса auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             Image = "https://redmangoimages.blob.core.windows.net/redmango/rasmalai.jpg",
                             Name = "Rasmalai",
                             Price = 4.9900000000000002,
@@ -376,7 +379,7 @@ namespace RedMango_API.Migrations
                         {
                             Id = 10,
                             Category = "Dessert",
-                            Description = "Fusc tincidunt maximus leo, sed scelerisque масса auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
+                            Description = "Fusc tincidunt maximus leo, sed scelerisque massa auctor sit amet. Donec ex mauris, hendrerit quis nibh ac, efficitur fringilla enim.",
                             Image = "https://redmangoimages.blob.core.windows.net/redmango/sweet rolls.jpg",
                             Name = "Sweet Rolls",
                             Price = 3.9900000000000002,
@@ -567,8 +570,7 @@ namespace RedMango_API.Migrations
                 {
                     b.HasOne("RedMango_API.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationUserId");
 
                     b.Navigation("User");
                 });
