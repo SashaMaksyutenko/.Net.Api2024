@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RedMango_API.Data;
@@ -22,6 +23,7 @@ namespace RedMango_API.Controllers
             _response = new ApiResponse();
         }
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<ApiResponse>> GetOrders(string? userId)
         {
             try
