@@ -86,7 +86,7 @@ app.UseSwaggerUI(c =>
     c.RoutePrefix = string.Empty; // Swagger UI at the app root
 });
 app.UseHttpsRedirection();
-app.UseCors(o => o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+app.UseCors(o => o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().WithExposedHeaders("*"));
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

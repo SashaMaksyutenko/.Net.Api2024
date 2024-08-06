@@ -6,7 +6,7 @@ using RedMango_API.Data;
 using RedMango_API.Models;
 using RedMango_API.Models.Dto;
 using RedMango_API.Utility;
-
+using System.Text.Json;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace RedMango_API.Controllers
@@ -24,7 +24,7 @@ namespace RedMango_API.Controllers
         }
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<ApiResponse>> GetOrders(string? userId, string searchString,string status)
+        public async Task<ActionResult<ApiResponse>> GetOrders(string? userId, string searchString,string status, int pageNumber = 1, int pageSize = 5)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace RedMango_API.Controllers
                     .OrderByDescending(u => u.OrderHeaderId);
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    _response.Result = orderHeaders.Where(u => u.ApplicationUserId == userId);
+                    orderHeaders = orderHeaders.Where(u => u.ApplicationUserId == userId);
                 }
                 if(!string.IsNullOrEmpty(searchString))
                 {
@@ -43,6 +43,14 @@ namespace RedMango_API.Controllers
                 {
                     orderHeaders = orderHeaders.Where(u => u.Status.ToLower() == status.ToLower());
                 }
+                Pagination pagination = new()
+                {
+                    CurrentPage = pageNumber,
+                    PageSize = pageSize,
+                    TotalRecords = orderHeaders.Count(),
+                };
+                Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(pagination));
+                _response.Result = orderHeaders.Skip((pageNumber - 1) * pageSize).Take(pageSize);
                 _response.StatusCode = HttpStatusCode.OK;
                 return Ok(_response);
             }
